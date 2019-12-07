@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "875554602797",
+    "firebase_url": "https://coursatk-7708a.firebaseio.com",
+    "project_id": "coursatk-7708a",
+    "storage_bucket": "coursatk-7708a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:875554602797:android:13d69b4ca71b29088a9da4",
+        "android_client_info": {
+          "package_name": "com.bin98.coursatk"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "875554602797-hhb0s4fc74t9lo448tajk236eiomv625.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDcVUmsKfJ0_OYyix6gNKuLkH20Ov_frCE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "875554602797-hhb0s4fc74t9lo448tajk236eiomv625.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
