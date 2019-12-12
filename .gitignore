@@ -71,3 +71,11 @@
 !**/ios/**/default.pbxuser
 !**/ios/**/default.perspectivev3
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
+
+pubspec.yaml
+
+android/app/google-services.json
+
+pubspec.lock
+
+android/app/build.gradle
