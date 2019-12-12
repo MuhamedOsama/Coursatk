@@ -8,6 +8,11 @@ class Authenticate extends StatefulWidget {
 }
 
 class _AuthenticateState extends State<Authenticate> {
+  bool showSignIn = true;
+  void toggleView() {
+    setState(() => showSignIn = !showSignIn);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +43,12 @@ class _AuthenticateState extends State<Authenticate> {
                   'Sign in',
                   style: TextStyle(color: Colors.grey[800],),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => SignIn()),
+                  );
+                },
             ),
             SizedBox(height: 20.0,),
             RaisedButton(
@@ -47,7 +57,12 @@ class _AuthenticateState extends State<Authenticate> {
                 'Sign Up',
                 style: TextStyle(color: Colors.grey[800],),
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Register()),
+                );
+              },
             )
           ],
         )

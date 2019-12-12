@@ -17,11 +17,18 @@ class _RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.brown[100],
+        backgroundColor: Colors.grey[900],
         appBar: AppBar(
-          backgroundColor: Colors.brown[400],
+          backgroundColor: Colors.grey[850],
           elevation: 0.0,
-          title: Text('Sign Up'),
+          title: Text('Coursatk - Sign up'),
+          actions: <Widget>[
+            FlatButton.icon(
+              icon: Icon(Icons.person),
+              label: Text('Homepage'),
+              onPressed: () {},
+            )
+          ],
         ),
         body: Container(
           padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
