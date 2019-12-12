@@ -12,6 +12,7 @@ class _SignInState extends State<SignIn> {
 
   // TextField states
   String email = '';
+  String error = '';
   String password = '';
 
   @override
@@ -64,7 +65,15 @@ class _SignInState extends State<SignIn> {
                   style: TextStyle(color: Colors.white),
                 ),
                 onPressed: () async {
-                  print('$email\n$password');
+                  dynamic result = await _auth.signIn(email, password);
+
+                  if(result == null)
+                  {
+                    setState(() {
+                      error = 'Please supply a valid email';
+
+                    });
+                  }
                 } ,
               ),
             ],

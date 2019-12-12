@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:coursatk/models/user.dart';
+import 'package:coursatk/services/database.dart';
+
 
 class AuthService {
   // Creates an instance of our FirebaseAuth
@@ -40,8 +42,29 @@ class AuthService {
   }
 
   // Email & Pass Sign-In
+  Future signIn(String email, String password) async{
+    try{
+      AuthResult result = await _auth.signInWithEmailAndPassword(email: email, password: password);
+      FirebaseUser user = result.user;
+      return _fireBaseUser(user);
+
+    } catch(e){
+      print(e.toString());
+      return null;
+    }
+  }
 
   // Email & Pass Register
+  Future register(String email, String password)async{
+    try{
+      AuthResult result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
+      FirebaseUser user = result.user;
+      return _fireBaseUser(user);
+    } catch(e){
+      print(e.toString());
+      return null;
+    }
+  }
 
   // Sign Out
   Future signOut() async {

@@ -9,9 +9,11 @@ class Register extends StatefulWidget {
 class _RegisterState extends State<Register> {
   // _ to make it private, Calls the AuthService instance
   final AuthService _auth = AuthService();
+  final _formKey = GlobalKey<FormState>();
 
   // TextField states
   String email = '';
+  String error = '';
   String password = '';
 
   @override
@@ -33,6 +35,7 @@ class _RegisterState extends State<Register> {
         body: Container(
           padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
           child: Form(
+              key: _formKey,
               child: Column(
                 children: <Widget>[
                   SizedBox(height: 20.0,),
@@ -64,7 +67,16 @@ class _RegisterState extends State<Register> {
                       style: TextStyle(color: Colors.white),
                     ),
                     onPressed: () async {
-                      print('$email\n$password');
+                      if(_formKey.currentState.validate())
+                      {
+                        dynamic result = await _auth.register(email, password);
+                        if(result == null)
+                        {
+                          setState(() {
+                            error = 'Please supply a valid email';
+                          });
+                        }
+                      }
                     } ,
                   ),
                 ],
