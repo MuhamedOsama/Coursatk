@@ -1,3 +1,5 @@
+import 'package:coursatk/screens/authenticate/authenticate.dart';
+import 'package:coursatk/screens/home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:coursatk/services/auth.dart';
 
@@ -27,7 +29,9 @@ class _SignInState extends State<SignIn> {
           FlatButton.icon(
             icon: Icon(Icons.person),
             label: Text('Homepage'),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Authenticate()),(route)=> false );
+            },
           )
         ],
       ),
@@ -66,7 +70,7 @@ class _SignInState extends State<SignIn> {
                 ),
                 onPressed: () async {
                   dynamic result = await _auth.signIn(email, password);
-
+                  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Home()),(route)=> false );
                   if(result == null)
                   {
                     setState(() {

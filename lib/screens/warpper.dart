@@ -8,7 +8,7 @@ class Wrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context); // We're trying to receive User date here so..
-    print(user); // Will either print (null) if we've no date or Instance of User.
+    // Will either print (null) if we've no date or Instance of User.
     // return either Home or Auth widget.
     if(user == null){ // Good ol' If/else to either show Auth (login/register) or our home.
       return Authenticate();
