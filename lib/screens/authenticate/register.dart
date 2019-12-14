@@ -75,12 +75,15 @@ class _RegisterState extends State<Register> {
                       if(_formKey.currentState.validate())
                       {
                         dynamic result = await _auth.register(email, password);
-                        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Reg()),(route)=> false );
+
                         if(result == null)
                         {
                           setState(() {
                             error = 'Please supply a valid email';
                           });
+                        }
+                        else{
+                          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Reg()),(route)=> false );
                         }
                       }
                     } ,

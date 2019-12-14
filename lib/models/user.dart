@@ -9,5 +9,5 @@ class Data{
   final String name;
   final String majors;
 
-  Data({this.name,this.majors,this.uid});
+  Data({this.uid,this.name,this.majors});
 }
