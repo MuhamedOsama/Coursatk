@@ -4,3 +4,10 @@ class User {
   User({ this.uid });
 
 }
+class Data{
+  final String uid;
+  final String name;
+  final String majors;
+
+  Data({this.name,this.majors,this.uid});
+}
