@@ -70,7 +70,6 @@ class _SignInState extends State<SignIn> {
                 ),
                 onPressed: () async {
                   dynamic result = await _auth.signIn(email, password);
-                  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Home()),(route)=> false );
                   if(result == null)
                   {
                     setState(() {
@@ -78,6 +77,10 @@ class _SignInState extends State<SignIn> {
 
                     });
                   }
+                  else
+                    {
+                      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Home()),(route)=> false );
+                    }
                 } ,
               ),
             ],
