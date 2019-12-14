@@ -32,10 +32,10 @@ class _RegState extends State<Reg> {
                 if(snapshot.hasData){
                   Data data = snapshot.data;
                   return Scaffold(
-                    backgroundColor: Colors.brown[50],
+                    backgroundColor: Colors.grey[900],
                     appBar: AppBar(
-                      title: Text('Home boii'),
-                      backgroundColor: Colors.brown[400],
+                      title: Text('Coursatk'),
+                      backgroundColor: Colors.grey[850],
                       elevation: 0.0,
                     ),
                     body: Container(

@@ -46,8 +46,10 @@ class _SignInState extends State<SignIn> {
                   setState(() => email = val);
                 },
                 autocorrect: false,
+                style: TextStyle(color: Colors.redAccent),
                 decoration: InputDecoration(
                   labelText: 'Enter your Email',
+                  labelStyle: TextStyle(color: Colors.amberAccent),
                 ),
               ),
               SizedBox(height: 20.0,),
@@ -57,8 +59,10 @@ class _SignInState extends State<SignIn> {
                 },
                 obscureText: true,
                 autocorrect: false,
+                style: TextStyle(color: Colors.redAccent),
                 decoration: InputDecoration(
                   labelText: 'Enter your Password',
+                  labelStyle: TextStyle(color: Colors.amberAccent),
                 ),
               ),
               SizedBox(height: 20.0,),

@@ -49,8 +49,10 @@ class _RegisterState extends State<Register> {
                       setState(() => email = val); // Assigns the value placed in the form in email string
                     },
                     autocorrect: false,
+                    style: TextStyle(color: Colors.redAccent),
                     decoration: InputDecoration(
                       labelText: 'Enter your Email', // Adds the Hint above text.
+                      labelStyle: TextStyle(color: Colors.amberAccent),
                     ),
                   ),
                   SizedBox(height: 20.0,),
@@ -60,8 +62,10 @@ class _RegisterState extends State<Register> {
                     },
                     obscureText: true,
                     autocorrect: false,
+                    style: TextStyle(color: Colors.redAccent),
                     decoration: InputDecoration(
                       labelText: 'Enter your Password', // Adds the Hint above text.
+                      labelStyle: TextStyle(color: Colors.amberAccent),
                     ),
                   ),
                   SizedBox(height: 20.0,),
