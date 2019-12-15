@@ -3,6 +3,7 @@ import 'package:coursatk/screens/authenticate/rest_register.dart';
 import 'package:coursatk/screens/home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:coursatk/services/auth.dart';
+import 'package:coursatk/shared/loading.dart';
 
 class Register extends StatefulWidget {
   @override
@@ -18,10 +19,11 @@ class _RegisterState extends State<Register> {
   String email = '';
   String error = '';
   String password = '';
+  bool loading = false;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return loading ? Loading() : Scaffold(
         backgroundColor: Colors.grey[900],
         appBar: AppBar(
           backgroundColor: Colors.grey[850],
@@ -76,22 +78,32 @@ class _RegisterState extends State<Register> {
                       style: TextStyle(color: Colors.white),
                     ),
                     onPressed: () async {
-                      if(_formKey.currentState.validate())
-                      {
-                        dynamic result = await _auth.register(email, password);
-
-                        if(result == null)
-                        {
-                          setState(() {
-                            error = 'Please supply a valid email';
-                          });
+                      setState(() => loading = true);
+                      if(_formKey.currentState.validate()) {
+                        if(password.length <= 6) {
+                          error = 'Password needs to be at least 6 Characters!';
+                          loading = false;
                         }
-                        else{
-                          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Reg()),(route)=> false );
+                        else {
+                          setState(() => loading = true);
+                          dynamic result = await _auth.register(
+                              email, password);
+                          if (result == null) {
+                            setState(() {
+                              error = 'Please supply a valid email';
+                              loading = false;
+                            });
+                          }
+                          else {
+                            Navigator.pushAndRemoveUntil(
+                                context, MaterialPageRoute(builder: (context) =>
+                                Reg()), (route) => false);
+                          }
                         }
                       }
                     } ,
                   ),
+                  error == '' ? Text('') : Text('Error, $error', style: TextStyle(color: Colors.red),),
                 ],
 
               )

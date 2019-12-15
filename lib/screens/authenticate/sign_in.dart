@@ -1,5 +1,6 @@
 import 'package:coursatk/screens/authenticate/authenticate.dart';
 import 'package:coursatk/screens/home/home.dart';
+import 'package:coursatk/shared/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:coursatk/services/auth.dart';
 
@@ -16,10 +17,11 @@ class _SignInState extends State<SignIn> {
   String email = '';
   String error = '';
   String password = '';
+  bool loading = false;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return loading ? Loading() : Scaffold(
         backgroundColor: Colors.grey[900],
       appBar: AppBar(
         backgroundColor: Colors.grey[850],
@@ -73,12 +75,13 @@ class _SignInState extends State<SignIn> {
                   style: TextStyle(color: Colors.white),
                 ),
                 onPressed: () async {
+                  setState(() => loading = true);
                   dynamic result = await _auth.signIn(email, password);
                   if(result == null)
                   {
                     setState(() {
                       error = 'Please supply a valid email';
-
+                      loading = false;
                     });
                   }
                   else
@@ -87,6 +90,7 @@ class _SignInState extends State<SignIn> {
                     }
                 } ,
               ),
+              error == '' ? Text('') : Text('Error, Kindly $error', style: TextStyle(color: Colors.red),),
             ],
 
           )
