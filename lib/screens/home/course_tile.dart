@@ -1,15 +1,19 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:coursatk/models/courses.dart';
+import 'package:coursatk/services/database.dart';
+import 'package:provider/provider.dart';
+import 'package:coursatk/models/user.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class CourseTile extends StatelessWidget {
 
   final Course course;
   final String majors;
   CourseTile({this.course, this.majors});
-
+  String enrolledCourses = '';
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<User>(context);
     void _showInfoPanel(){
       showModalBottomSheet(context: context, builder: (context) {
         return Container(
@@ -70,7 +74,33 @@ class CourseTile extends StatelessWidget {
                 ),
                 color: Colors.pink,
                 onPressed: (){
-                  //Firestore.instance.collection("course").document(course.title).delete();
+                  Firestore.instance.collection('data').document(user.uid).snapshots().listen((data) {
+                    enrolledCourses = data['enrolledCourses'];
+                    print(data['enrolledCourses']);
+                    print(course.title+"_");
+                    if(enrolledCourses.contains(course.title+"_"))
+                      {
+                        print('You already ENROLLED this course');
+                      }
+                    else
+                    {
+                      if(course.currentStudents < course.maxStudents)
+                        {
+                          if(course.majors == data['majors'])
+                            {
+                              DatabaseService().enrollCourse(course.title, course.currentStudents, user.uid);
+                            }
+                          else
+                            {
+                              print("You are not MAJORING in this!");
+                            }
+                        }
+                      else
+                        {
+                          print('Maximum Students for this course is REACHED');
+                        }
+                    }
+                  });
                 },
               ),
 

@@ -10,10 +10,11 @@ class DatabaseService {
   final CollectionReference registerCollection = Firestore.instance.collection('data');
   final CollectionReference courseCollection = Firestore.instance.collection('course');
 
-  Future update(String name,String majors) async{
+  Future update(String name,String majors, String enrolledCourses) async{
     return await registerCollection.document(uid).setData({
       'name': name,
       'majors': majors,
+      'enrolledCourses': enrolledCourses,
     });
   }
 
@@ -33,7 +34,8 @@ class DatabaseService {
     return Data(
         uid: uid,
         name: snapshot.data['name'],
-        majors: snapshot.data['majors']
+        majors: snapshot.data['majors'],
+        enrolledCourses: snapshot.data['enrolledCourses'],
     );
   }
 
@@ -63,4 +65,12 @@ class DatabaseService {
     }).toList();
   }
 
+enrollCourse(String title, int currentStudents,String uid) async{
+  String enrolledCourses = '';
+  registerCollection.snapshots().listen((data) =>
+      data.documents.forEach((doc) { if(doc.toString() == uid); enrolledCourses = doc['enrolledCourses']; } ));
+    await courseCollection.document(title).updateData({'currentStudents': currentStudents+1,});
+    await registerCollection.document(uid).updateData({'enrolledCourses': enrolledCourses+title+"_"});
+
+   }
 }

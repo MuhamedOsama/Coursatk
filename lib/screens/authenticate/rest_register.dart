@@ -2,9 +2,7 @@ import 'package:coursatk/models/user.dart';
 import 'package:coursatk/screens/home/home.dart';
 import 'package:coursatk/services/database.dart';
 import 'package:coursatk/shared/designs.dart';
-import 'package:coursatk/shared/loading.dart';
 import 'package:flutter/material.dart';
-import 'package:coursatk/services/auth.dart';
 import 'package:provider/provider.dart';
 
 class Reg extends StatefulWidget {
@@ -17,6 +15,7 @@ class _RegState extends State<Reg> {
   final _formKey = GlobalKey<FormState>();
   String name;
   String _majors;
+  String enrolledCourses;
   final List<String> majors = ['Development','Design','Business'];
   String error;
 
@@ -75,7 +74,9 @@ class _RegState extends State<Reg> {
                                 {
                                   await DatabaseService(uid: user.uid).update(
                                       name ?? snapshot.data.name,
-                                      _majors ?? snapshot.data.majors
+                                      _majors ?? snapshot.data.majors,
+                                      enrolledCourses ?? snapshot.data.enrolledCourses,
+
                                   );
                                   Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Home()),(route)=> false );
                                 }

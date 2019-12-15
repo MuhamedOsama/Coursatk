@@ -1,6 +1,5 @@
 import 'package:coursatk/screens/authenticate/authenticate.dart';
 import 'package:coursatk/screens/authenticate/rest_register.dart';
-import 'package:coursatk/screens/home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:coursatk/services/auth.dart';
 import 'package:coursatk/shared/loading.dart';
@@ -80,7 +79,7 @@ class _RegisterState extends State<Register> {
                     onPressed: () async {
                       setState(() => loading = true);
                       if(_formKey.currentState.validate()) {
-                        if(password.length <= 6) {
+                        if(password.length < 6) {
                           error = 'Password needs to be at least 6 Characters!';
                           loading = false;
                         }
