@@ -11,6 +11,7 @@ class CourseTile extends StatelessWidget {
   final String majors;
   CourseTile({this.course, this.majors});
   String enrolledCourses = '';
+  String simpleError = '';
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
@@ -41,12 +42,30 @@ class CourseTile extends StatelessWidget {
                   ),
                   color: Colors.pink,
                   onPressed: (){
-                    //Firestore.instance.collection("course").document(course.title).delete();
                   },
                 ),
               ],
             )
           );
+      });
+    }
+    void _showErrorPanel(){
+      showModalBottomSheet(context: context, builder: (context) {
+        return Container(
+            color: Colors.grey[900],
+            padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 60.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(
+                  simpleError,
+                  style: TextStyle(
+                    color: Colors.amberAccent, fontSize: 13.0,
+                  ),
+                ),
+              ],
+            )
+        );
       });
     }
     return Padding(
@@ -76,11 +95,13 @@ class CourseTile extends StatelessWidget {
                 onPressed: (){
                   Firestore.instance.collection('data').document(user.uid).snapshots().listen((data) {
                     enrolledCourses = data['enrolledCourses'];
-                    print(data['enrolledCourses']);
-                    print(course.title+"_");
+                    //print(data['enrolledCourses']);
+                    //print(course.title+"_");
                     if(enrolledCourses.contains(course.title+"_"))
                       {
-                        print('You already ENROLLED this course');
+                        simpleError = 'You already ENROLLED this course';
+                        _showErrorPanel();
+                        //print('You already ENROLLED this course');
                       }
                     else
                     {
@@ -92,12 +113,16 @@ class CourseTile extends StatelessWidget {
                             }
                           else
                             {
-                              print("You are not MAJORING in this!");
+                              simpleError = 'You are not MAJORING in this!';
+                              _showErrorPanel();
+                              //print("You are not MAJORING in this!");
                             }
                         }
                       else
                         {
-                          print('Maximum Students for this course is REACHED');
+                          simpleError = 'Maximum Students for this course is REACHED';
+                          _showErrorPanel();
+                          //print('Maximum Students for this course is REACHED');
                         }
                     }
                   });

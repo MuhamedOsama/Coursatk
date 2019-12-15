@@ -19,8 +19,6 @@ class _RegState extends State<Reg> {
   final List<String> majors = ['Development','Design','Business'];
   String error;
 
-
-
   @override
   Widget build(BuildContext context) {
     User user = Provider.of<User>(context);
