@@ -1,17 +1,26 @@
+import 'dart:io';
+
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:coursatk/models/courses.dart';
 import 'package:coursatk/services/database.dart';
 import 'package:provider/provider.dart';
 import 'package:coursatk/models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:http/http.dart' as http;
+
 
 class CourseTile extends StatelessWidget {
+
+
 
   final Course course;
   final String majors;
   CourseTile({this.course, this.majors});
   String enrolledCourses = '';
   String simpleError = '';
+
+
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
@@ -41,7 +50,22 @@ class CourseTile extends StatelessWidget {
                       ]
                   ),
                   color: Colors.pink,
-                  onPressed: (){
+                  onPressed: () async{
+                    StorageReference gsReference;
+                    final String url = await gsReference.getDownloadURL();
+                    final http.Response downloadData = await http.get(url);
+                    final Directory systemTempDir = Directory.systemTemp;
+                    final File tempFile = File('${systemTempDir.path}/tmp.jpg');
+                    await tempFile.create();
+                    final StorageFileDownloadTask task = gsReference.writeToFile(tempFile);
+                    final int byteCount = (await task.future).totalByteCount;
+                    var bodyBytes = downloadData.bodyBytes;
+                    final String name = await gsReference.getName();
+                    final String path = await gsReference.getPath();
+                    print(
+                      'Success!\nDownloaded $name \nUrl: $url'
+                          '\npath: $path \nBytes Count :: $byteCount',
+                    );
                   },
                 ),
               ],
