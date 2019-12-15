@@ -31,7 +31,7 @@ class _AuthenticateState extends State<Authenticate> {
           children: <Widget>[
             Center(
               child: CircleAvatar(
-                backgroundImage: AssetImage('images/c.jpg'),
+                backgroundImage: AssetImage('images/x.jpg'),
                 radius: 60.0,
               )
             ),
